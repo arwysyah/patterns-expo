@@ -1,0 +1,26 @@
+# Design Patterns and MVVM in EXPO
+
+## Overview
+
+This is a simple project built with Expo, aimed at demonstrating various **design patterns** and the **MVVM (Model-View-ViewModel)** architecture in a mobile application.
+
+The main goal of this project is to experiment with and apply several common design patterns to a To-Do application, including but not limited to:
+- Factory
+- Singleton
+- Builder
+- Command
+- Observer
+- State
+- Strategy
+- MVVM (Model-View-ViewModel) architecture
+
+The app supports functionality such as adding, deleting, undo/redo tasks, and handling both personal and office tasks. Office tasks include additional fields for description, clock-in, and clock-out estimation.
+
+### Features:
+- Add tasks (Personal or Office)
+- Edit and delete tasks
+- Undo and redo actions
+- Office tasks have additional fields: description, clock-in, and clock-out estimation
+
+This project was created to play and explore how to structure a React Native application using these design patterns and MVVM.
+
