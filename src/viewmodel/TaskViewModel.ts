@@ -1,10 +1,17 @@
 import { TaskManagerSingleton } from "../core/TaskManagerSingleton";
-import { SortingStrategy } from "../core/TaskStrategy";
+import { NewestFirstStrategy, SortingStrategy } from "../core/TaskStrategy";
 import { Task } from "../model/Task";
-
 
 export class TaskViewModel {
   private taskManager = TaskManagerSingleton.getInstance();
+  private tasks: Task[] = [];
+
+  constructor() {
+    this.taskManager.taskObservable.subscribe(this.updateTasks);
+  }
+  private updateTasks = (tasks: Task[]) => {
+    this.tasks =  tasks;
+  };
 
   addTask(task: Task): void {
     this.taskManager.addTask(task);
@@ -26,8 +33,15 @@ export class TaskViewModel {
     this.taskManager.taskObservable.subscribe(callback);
   }
 
-  sortTasks(strategy: SortingStrategy): Task[] {
-    const tasks = this.taskManager.getTasks();
-    return strategy.sort(tasks);
+  getTasks(): Task[] {
+    return [...this.tasks];
+  }
+
+  sortTasks(strategy: NewestFirstStrategy): Task[] {
+    return strategy.sort(this.getTasks());
+  }
+
+  unsubscribe(callback: (tasks: Task[]) => void): void {
+    this.taskManager.taskObservable.unsubscribe(callback);
   }
 }

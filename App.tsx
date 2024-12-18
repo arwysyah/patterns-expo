@@ -12,7 +12,9 @@ const App: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
 
   useEffect(() => {
-    taskViewModel.subscribe(setTasks);
+    taskViewModel.subscribe((task)=>{
+      setTasks(task)
+    });
   }, []);
 
   const addTask = (title: string, category: "Personal" | "Office",description:string) => {

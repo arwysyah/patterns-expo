@@ -33,11 +33,10 @@ export const TaskInput: React.FC<TaskInputProps> = ({ onAddTask }) => {
 
   const categories = ["Personal", "Office"];
   const handleAddTask = () => {
-    if (!title.trim()) {
+    if (!title.trim() || !description.trim()) {
       alert("Task title is required.");
       return;
     }
-
     onAddTask(title, category, description, clockIn);
     setTitle("");
     setDescription("");

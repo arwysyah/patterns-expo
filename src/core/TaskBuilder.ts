@@ -1,16 +1,17 @@
 import { Task } from "../model/Task";
+import { formatDateWithAMPM } from "../utils/dateFormatter";
 import { PendingState } from "./TaskState";
 
 export class TaskBuilder {
   private task: Task;
 
-  constructor(title: string, category: "Personal" | "Office") {
+  constructor(title: string, category: "Personal" | "Office",description:string) {
     this.task = {
       id: Math.random(),
       title,
-      description: "",
+      description,
       category,
-      clockIn: new Date().toISOString(),
+      clockIn: formatDateWithAMPM(new Date()),
       state: new PendingState(),
       getDetails: function (): string {
         return `${this.title} - ${this.category} - ${this.description}`;
