@@ -10,8 +10,8 @@ export class AlphabeticalStrategy implements SortingStrategy {
   }
 }
 
-export class CategoryStrategy implements SortingStrategy {
-  sort(tasks: Task[]): Task[] {
-    return tasks.sort((a, b) => a.category.localeCompare(b.category));
+export class NewestFirstStrategy implements SortingStrategy {
+    sort(tasks: Task[]): Task[] {
+      return tasks.sort((a, b) => new Date(b.clockIn).getTime() - new Date(a.clockIn).getTime());
+    }
   }
-}

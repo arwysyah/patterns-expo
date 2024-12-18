@@ -7,6 +7,7 @@ export class TaskManager {
   private tasks: Task[] = [];
   private commandHistory: CommandHistory = new CommandHistory();
   public taskObservable = new Observable<Task[]>();
+  private unsubscribe: any 
 
   addTask(task: Task): void {
     const addCommand = new AddTaskCommand(this.tasks, task);
@@ -32,5 +33,15 @@ export class TaskManager {
 
   getTasks(): Task[] {
     return [...this.tasks];
+  }
+  subscribeToUpdates(callback: (tasks: Task[]) => void): void {
+    this.unsubscribe = this.taskObservable.subscribe(callback);
+  }
+
+
+  unsubscribeFromUpdates(): void {
+    if (this.unsubscribe) {
+      this.unsubscribe();  
+    }
   }
 }

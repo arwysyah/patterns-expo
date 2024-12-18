@@ -8,6 +8,6 @@ export class TaskFactory {
     category: "Personal" | "Office",
     description: string
   ): Task {
-    return new TaskBuilder(title, category).setDescription(description || "").build();
+    return new TaskBuilder(title, category,description).build();
   }
 }
