@@ -17,9 +17,9 @@ export const Picker: React.FC<CustomPickerProps> = ({ visible, options, selected
           <FlatList
             data={options}
             keyExtractor={(item) => item}
-            renderItem={({ item }) => (
+            renderItem={({ item,index }) => (
               <TouchableOpacity
-                style={styles.modalItem}
+                style={Number(index) !== item.length ? styles.modalItemBottom:styles.modalItemTop}
                 onPress={() => {
                   onSelect(item);
                   onClose();
@@ -50,10 +50,19 @@ const styles = StyleSheet.create({
     width: "80%",
     maxHeight: "50%",
   },
-  modalItem: {
+  modalItemBottom: {
     padding: 15,
     borderBottomWidth: 1,
     borderBottomColor: "#ccc",
+    borderTopWidth: 1,
+    borderTopColor: "#ccc",
+    
+  },
+  modalItemTop: {
+    padding: 15,
+    borderTopWidth: 1,
+    borderTopColor: "#ccc",
+    
   },
   modalItemText: {
     fontSize: 16,

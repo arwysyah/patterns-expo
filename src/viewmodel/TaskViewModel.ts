@@ -1,30 +1,33 @@
+import { TaskManagerSingleton } from "../core/TaskManagerSingleton";
+import { SortingStrategy } from "../core/TaskStrategy";
 import { Task } from "../model/Task";
-import { TaskCommand } from "../patterns/TaskCommand";
-import { TaskFactory } from "../patterns/TaskFactory";
-import { taskManager } from "../patterns/TaskManagerSingleton";
 
 
 export class TaskViewModel {
-  private taskCommand = new TaskCommand();
+  private taskManager = TaskManagerSingleton.getInstance();
 
-  addTask(title: string, category: "Personal" | "Office", description: string = "",): void {
-    const task = TaskFactory.createTask(title, category, description,);
-    this.taskCommand.addTask(task);
+  addTask(task: Task): void {
+    this.taskManager.addTask(task);
   }
 
   deleteTask(index: number): void {
-    this.taskCommand.deleteTask(index);
-  }
-
-  getTasks(): Task[] {
-    return taskManager.getTasks();
+    this.taskManager.deleteTask(index);
   }
 
   undo(): void {
-    this.taskCommand.undo();
+    this.taskManager.undo();
   }
 
   redo(): void {
-    this.taskCommand.redo();
+    this.taskManager.redo();
+  }
+
+  subscribe(callback: (tasks: Task[]) => void): void {
+    this.taskManager.taskObservable.subscribe(callback);
+  }
+
+  sortTasks(strategy: SortingStrategy): Task[] {
+    const tasks = this.taskManager.getTasks();
+    return strategy.sort(tasks);
   }
 }
